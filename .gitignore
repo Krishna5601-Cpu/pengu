@@ -6,6 +6,10 @@
 *.dylib
 pengu
 
+# Local build output (release binaries are published via GitHub Releases)
+release/
+pengu-build
+
 # Test files
 *.test
 test_*.pen

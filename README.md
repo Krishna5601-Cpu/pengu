@@ -186,8 +186,16 @@ pengu install <module_name>
 Example:
 ```bash
 pengu install math
-pengu install array
+pengu install color
+pengu install validator
 ```
+
+Available modules: `math`, `color`, `validator`, `recon`.
+
+> **Note:** Arrays, objects, strings and the other core types are built into
+> the language — there is no module to install for them. `pengu install` only
+> fetches optional `.pen` modules that extend the standard library.
+
 This downloads the module and places it in your local `modules/` directory, making it instantly available via the `use` keyword.
 
 ### Version & Help
@@ -1168,6 +1176,28 @@ Raw TCP networking, port scanning, and DNS lookups.
 | `net.lookup_txt(domain)` | Resolves TXT records | Array of Strings |
 
 **Connection Object:** Contains `send(data)`, `recv(size?)`, and `close()` methods.
+
+### Native: `regex`
+
+Regular expression matching, powered by Go's `regexp` package.
+
+| Method | Description | Returns |
+| --- | --- | --- |
+| `regex.match(pattern, str)` | Test whether the pattern matches anywhere | Boolean |
+| `regex.find(pattern, str)` | First match of the pattern | Matched string or null |
+| `regex.find_all(pattern, str)` | All non-overlapping matches | Array of Strings |
+| `regex.replace(pattern, repl, text)` | Replace all matches in `text` with `repl` | String |
+| `regex.split(pattern, str)` | Split the string around matches | Array of Strings |
+| `regex.extract(pattern, str)` | Full match plus all capture groups | Array of Strings |
+
+```pengu
+use regex
+
+say regex.match("a[0-9]+b", "xxa123byy")   // true
+say regex.find_all("a[0-9]+", "a1 a22")   // ["a1", "a22"]
+say regex.replace("a[0-9]+", "N", "a1 a22")  // N N
+say regex.extract("(\w+)@(\w+)", "mail:user@host")  // ["user@host", "user", "host"]
+```
 
 ### External: `recon`
 Cybersecurity reconnaissance automation (requires `pengu install recon`).
