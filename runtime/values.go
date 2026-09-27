@@ -20,24 +20,24 @@ const (
 	VAL_OBJECT
 	VAL_FUNCTION
 	VAL_BUILTIN
-	VAL_RETURN    // wrapper for return values
-	VAL_BREAK     // signal for break
-	VAL_CONTINUE  // signal for continue
-	VAL_FUTURE    // concurrent future (from spawn)
+	VAL_RETURN   // wrapper for return values
+	VAL_BREAK    // signal for break
+	VAL_CONTINUE // signal for continue
+	VAL_FUTURE   // concurrent future (from spawn)
 )
 
 // Value represents a runtime value in Pengu.
 type Value struct {
-	Type     ValueType
-	Number   float64
-	Str      string
-	Bool     bool
-	Array    []*Value
-	Object   *OrderedMap
-	Func     *FunctionValue
-	Builtin  BuiltinFunc
-	Future   *Future
-	IsInt    bool // whether the number is an integer
+	Type    ValueType
+	Number  float64
+	Str     string
+	Bool    bool
+	Array   []*Value
+	Object  *OrderedMap
+	Func    *FunctionValue
+	Builtin BuiltinFunc
+	Future  *Future
+	IsInt   bool // whether the number is an integer
 }
 
 // FunctionValue holds the data for a user-defined function.

@@ -277,7 +277,7 @@ func (p *Parser) parseRepeatStatement() (ast.Node, error) {
 		iteratorTok := p.advance() // consume iterator name
 		var valueIterator string
 		if p.peekType() == lexer.TOKEN_COMMA {
-			p.advance() // consume ','
+			p.advance()           // consume ','
 			valTok := p.advance() // consume value iterator name
 			valueIterator = valTok.Value
 		}

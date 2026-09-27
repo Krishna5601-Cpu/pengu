@@ -36,21 +36,21 @@ const (
 	TOKEN_AWAIT     // await
 
 	// Operators
-	TOKEN_PLUS     // +
-	TOKEN_MINUS    // -
-	TOKEN_STAR     // *
-	TOKEN_SLASH    // /
-	TOKEN_PERCENT  // %
-	TOKEN_ASSIGN   // =
-	TOKEN_EQ       // ==
-	TOKEN_NEQ      // !=
-	TOKEN_LT       // <
-	TOKEN_GT       // >
-	TOKEN_LTE      // <=
-	TOKEN_GTE      // >=
-	TOKEN_AND      // &&
-	TOKEN_OR       // ||
-	TOKEN_NOT      // !
+	TOKEN_PLUS    // +
+	TOKEN_MINUS   // -
+	TOKEN_STAR    // *
+	TOKEN_SLASH   // /
+	TOKEN_PERCENT // %
+	TOKEN_ASSIGN  // =
+	TOKEN_EQ      // ==
+	TOKEN_NEQ     // !=
+	TOKEN_LT      // <
+	TOKEN_GT      // >
+	TOKEN_LTE     // <=
+	TOKEN_GTE     // >=
+	TOKEN_AND     // &&
+	TOKEN_OR      // ||
+	TOKEN_NOT     // !
 
 	// Delimiters
 	TOKEN_LPAREN   // (
@@ -67,10 +67,10 @@ const (
 
 // Token represents a lexical token with its type, value, and position.
 type Token struct {
-	Type    TokenType
-	Value   string
-	Line    int
-	Column  int
+	Type   TokenType
+	Value  string
+	Line   int
+	Column int
 }
 
 // keywords maps keyword strings to their token types.

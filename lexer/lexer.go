@@ -8,11 +8,11 @@ import (
 
 // Lexer tokenizes Pengu source code.
 type Lexer struct {
-	source  []rune
-	pos     int
-	line    int
-	col     int
-	tokens  []Token
+	source []rune
+	pos    int
+	line   int
+	col    int
+	tokens []Token
 }
 
 // New creates a new Lexer for the given source code.

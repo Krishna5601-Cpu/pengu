@@ -200,7 +200,7 @@ type (
 )
 
 // nodeType implementations
-func (p *Program) nodeType() string             { return "Program" }
+func (p *Program) nodeType() string              { return "Program" }
 func (v *VariableDeclaration) nodeType() string  { return "VariableDeclaration" }
 func (a *AssignmentExpression) nodeType() string { return "AssignmentExpression" }
 func (f *FunctionDeclaration) nodeType() string  { return "FunctionDeclaration" }

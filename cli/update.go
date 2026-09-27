@@ -155,11 +155,11 @@ type ProgressWriter struct {
 func (pw *ProgressWriter) Write(p []byte) (int, error) {
 	n := len(p)
 	pw.Downloaded += int64(n)
-	
+
 	if pw.Total > 0 {
 		percent := float64(pw.Downloaded) / float64(pw.Total) * 100
 		fmt.Printf("\r  [")
-		
+
 		completed := int(percent / 100.0 * 40)
 		for i := 0; i < completed; i++ {
 			fmt.Print("=")
@@ -170,12 +170,12 @@ func (pw *ProgressWriter) Write(p []byte) (int, error) {
 		for i := completed + 1; i < 40; i++ {
 			fmt.Print(" ")
 		}
-		
+
 		fmt.Printf("] %.1f%% (%d / %d MB)", percent, pw.Downloaded/1024/1024, pw.Total/1024/1024)
 	} else {
 		fmt.Printf("\r  Downloaded %d MB...", pw.Downloaded/1024/1024)
 	}
-	
+
 	return n, nil
 }
 
@@ -199,7 +199,7 @@ func downloadAsset(url string) (string, error) {
 	progress := &ProgressWriter{Total: resp.ContentLength}
 	_, err = io.Copy(tmpFile, io.TeeReader(resp.Body, progress))
 	fmt.Println() // Newline after progress bar
-	
+
 	if err != nil {
 		os.Remove(tmpFile.Name())
 		return "", fmt.Errorf("failed to write downloaded binary: %v", err)

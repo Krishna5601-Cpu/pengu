@@ -953,10 +953,18 @@ func (i *Interpreter) execMember(n *ast.MemberExpression, env *runtime.Environme
 				if len(args) >= 2 && args[1].Type == runtime.VAL_NUMBER {
 					end = int(args[1].Number)
 				}
-				if start < 0 { start = len(obj.Array) + start }
-				if end < 0 { end = len(obj.Array) + end }
-				if start < 0 { start = 0 }
-				if end > len(obj.Array) { end = len(obj.Array) }
+				if start < 0 {
+					start = len(obj.Array) + start
+				}
+				if end < 0 {
+					end = len(obj.Array) + end
+				}
+				if start < 0 {
+					start = 0
+				}
+				if end > len(obj.Array) {
+					end = len(obj.Array)
+				}
 				if start >= end {
 					return runtime.NewArray([]*runtime.Value{}), nil
 				}
@@ -1002,8 +1010,12 @@ func (i *Interpreter) execMember(n *ast.MemberExpression, env *runtime.Environme
 						cbArgs = []*runtime.Value{elem}
 					}
 					val, err := i.invokeCallback(callback, cbArgs, n.Line)
-					if err != nil { return nil, err }
-					if !val.IsTruthy() { return runtime.NewBool(false), nil }
+					if err != nil {
+						return nil, err
+					}
+					if !val.IsTruthy() {
+						return runtime.NewBool(false), nil
+					}
 				}
 				return runtime.NewBool(true), nil
 			}), nil
@@ -1021,8 +1033,12 @@ func (i *Interpreter) execMember(n *ast.MemberExpression, env *runtime.Environme
 						cbArgs = []*runtime.Value{elem}
 					}
 					val, err := i.invokeCallback(callback, cbArgs, n.Line)
-					if err != nil { return nil, err }
-					if val.IsTruthy() { return runtime.NewBool(true), nil }
+					if err != nil {
+						return nil, err
+					}
+					if val.IsTruthy() {
+						return runtime.NewBool(true), nil
+					}
 				}
 				return runtime.NewBool(false), nil
 			}), nil
@@ -1037,7 +1053,9 @@ func (i *Interpreter) execMember(n *ast.MemberExpression, env *runtime.Environme
 						shouldSwap := false
 						if len(args) > 0 {
 							val, err := i.invokeCallback(args[0], []*runtime.Value{sorted[y], key}, n.Line)
-							if err != nil { return nil, err }
+							if err != nil {
+								return nil, err
+							}
 							shouldSwap = val.Number > 0
 						} else {
 							if sorted[y].Type == runtime.VAL_NUMBER && key.Type == runtime.VAL_NUMBER {
@@ -1046,7 +1064,9 @@ func (i *Interpreter) execMember(n *ast.MemberExpression, env *runtime.Environme
 								shouldSwap = sorted[y].String() > key.String()
 							}
 						}
-						if !shouldSwap { break }
+						if !shouldSwap {
+							break
+						}
 						sorted[y+1] = sorted[y]
 						y--
 					}
@@ -1165,10 +1185,18 @@ func (i *Interpreter) execMember(n *ast.MemberExpression, env *runtime.Environme
 				if len(args) >= 2 && args[1].Type == runtime.VAL_NUMBER {
 					end = int(args[1].Number)
 				}
-				if start < 0 { start = len(runes) + start }
-				if end < 0 { end = len(runes) + end }
-				if start < 0 { start = 0 }
-				if end > len(runes) { end = len(runes) }
+				if start < 0 {
+					start = len(runes) + start
+				}
+				if end < 0 {
+					end = len(runes) + end
+				}
+				if start < 0 {
+					start = 0
+				}
+				if end > len(runes) {
+					end = len(runes)
+				}
 				if start >= end {
 					return runtime.NewString(""), nil
 				}
