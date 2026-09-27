@@ -160,9 +160,20 @@ pengu server.pen -o api
 ```
 
 The generated binary:
-- Runs independently (no Pengu installation needed)
+- Runs independently (no Pengu installation needed on the target machine)
 - Bundles the Pengu runtime
 - Automatically gets `.exe` on Windows, no extension on Linux/macOS
+
+> **Note:** Building requires the Go toolchain and network access on the
+> *building* machine. `pengu build` generates a small Go program that imports
+> the Pengu runtime and compiles it, so `go` must be installed and able to
+> download the `github.com/v4nsh0x/pengu` module. The resulting binary needs
+> neither.
+
+> **Note:** Only the script you pass to `pengu build` is embedded. Modules
+> pulled in with `use` are read from disk at runtime, so either keep the
+> `modules/` directory alongside the binary or avoid `use` in scripts you
+> intend to compile.
 
 ### Package Manager
 
@@ -778,7 +789,12 @@ say square(5)  // 25
 say cube(3)    // 27
 ```
 
-> **How it works:** `use math` looks for `math.pen` in the same directory as the current file and executes it in the current scope.
+> **How it works:** `use math` searches for `math.pen` in the current script's
+> directory, then in a `modules/` directory beside the script, then in a
+> `modules/` directory beside the `pengu` executable, then in a `modules/`
+> directory beside your current working directory. The first match is executed
+> in the current scope, so its functions and variables are available to the
+> importing file.
 
 > **Note:** Each module is imported only once, even if `use` is called multiple times.
 
