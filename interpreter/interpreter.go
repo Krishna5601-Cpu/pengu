@@ -448,6 +448,12 @@ func (i *Interpreter) execUse(n *ast.UseStatement, env *runtime.Environment) (*r
 		searchPaths = append(searchPaths, filepath.Join(execDir, "modules", moduleName))
 	}
 
+	// Fall back to a modules/ directory next to the working directory, so
+	// scripts run from a project root can use that project's modules/.
+	if cwd, err := os.Getwd(); err == nil {
+		searchPaths = append(searchPaths, filepath.Join(cwd, "modules", moduleName))
+	}
+
 	// Try each search path
 	var modulePath string
 	var data []byte
@@ -481,12 +487,13 @@ func (i *Interpreter) execUse(n *ast.UseStatement, env *runtime.Environment) (*r
 	if err != nil {
 		return nil, fmt.Errorf("Error in module '%s':\n%s", n.Module, err)
 	}
-	moduleEnv := runtime.NewEnvironment(i.Global)
-	ret, err := i.execProgram(program, moduleEnv)
+	// Execute the module in the caller's scope so its functions and
+	// variables are visible to the importing file, as documented.
+	ret, err := i.execProgram(program, env)
 	if err != nil {
 		return nil, fmt.Errorf("Error in module '%s':\n%s", n.Module, err)
 	}
-	
+
 	if ret != nil {
 		ret = ret.Unwrap()
 		if ret.Type != runtime.VAL_NULL {
