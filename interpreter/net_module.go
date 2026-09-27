@@ -3,6 +3,7 @@ package interpreter
 import (
 	"fmt"
 	"net"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -43,7 +44,7 @@ func createNetModule() *runtime.Value {
 				defer wg.Done()
 				defer func() { <-sem }()
 
-				addr := fmt.Sprintf("%s:%d", host, p)
+				addr := net.JoinHostPort(host, strconv.Itoa(p))
 				conn, err := net.DialTimeout("tcp", addr, timeout)
 				mu.Lock()
 				if err != nil {
@@ -90,7 +91,7 @@ func createNetModule() *runtime.Value {
 				defer wg.Done()
 				defer func() { <-sem }()
 
-				addr := fmt.Sprintf("%s:%d", host, port)
+				addr := net.JoinHostPort(host, strconv.Itoa(port))
 				conn, err := net.DialTimeout("tcp", addr, timeout)
 				if err == nil {
 					conn.Close()
@@ -115,7 +116,7 @@ func createNetModule() *runtime.Value {
 			timeout = time.Duration(args[2].Number) * time.Second
 		}
 
-		addr := fmt.Sprintf("%s:%d", args[0].Str, int(args[1].Number))
+		addr := net.JoinHostPort(args[0].Str, strconv.Itoa(int(args[1].Number)))
 		conn, err := net.DialTimeout("tcp", addr, timeout)
 		if err != nil {
 			return nil, fmt.Errorf("net.connect() failed: %v", err)

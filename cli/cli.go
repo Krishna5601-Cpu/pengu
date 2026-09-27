@@ -95,7 +95,7 @@ func Run(args []string) {
 
 func printHelp() {
 	fmt.Printf(logo, version)
-	fmt.Println(usage)
+	fmt.Print(usage)
 }
 
 func runFile(filename string) {
@@ -109,7 +109,7 @@ func runFile(filename string) {
 
 func runREPL() {
 	fmt.Printf(logo, version)
-	fmt.Println("  Type 'exit' or press Ctrl+C to quit\n")
+	fmt.Print("  Type 'exit' or press Ctrl+C to quit\n\n")
 
 	interp := interpreter.New()
 	scanner := bufio.NewScanner(os.Stdin)
